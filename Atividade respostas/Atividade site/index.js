@@ -1,41 +1,48 @@
 class Livro {
-    constructor(titulo, autor, disponivel) {
-      this.titulo = titulo;
-      this.autor = autor;
-      this.disponivel = disponivel;
-    }
-  
-    emprestar() {
-      if (this.disponivel) {
-        this.disponivel = false;
-        console.log("Livro emprestado com sucesso.");
-      } else {
-        console.log("O livro não está disponível para empréstimo.");
-      }
-    }
-  
-    devolver() {
-      if (!this.disponivel) {
-        this.disponivel = true;
-        console.log("Livro devolvido com sucesso.");
-      } else {
-        console.log("Disponível.");
-      }
-    }
-  
-    consultarDisponibilidade() {
-      return this.disponivel;
-    }
+  constructor(titulo, autor, disponivel) {
+    this._titulo = titulo;
+    this._autor = autor;
+    this._disponivel = disponivel;
   }
-  
-  // Exemplo de uso:
-  const livro = new Livro("Dom Quixote", "Miguel de Cervantes", true);
-  
-  console.log("Disponibilidade do livro:", livro.consultarDisponibilidade());
-  
-  livro.emprestar();
-  console.log("Disponibilidade do livro:", livro.consultarDisponibilidade());
-  
-  livro.devolver();
-  console.log("Disponibilidade do livro:", livro.consultarDisponibilidade());
-  
+
+  set disponivel(bool) {
+      this._disponivel = bool;
+  }
+
+  emprestar() {
+    let message = "O livro não está disponível para empréstimo."
+    
+    if (this.consultarDisponibilidade()) {
+      this.disponivel = false;
+      message = "Livro emprestado com sucesso.";
+    }
+
+    console.log(message);
+  }
+
+  devolver() {
+    let message = "Disponível."
+
+    if (!this.consultarDisponibilidade()) {
+      this.disponivel = true;
+      message = "Livro devolvido com sucesso.";
+    }
+
+    console.log(message);
+  }
+
+  consultarDisponibilidade() {
+    return this._disponivel;
+  }
+}
+
+// Exemplo de uso:
+const livro = new Livro("Dom Quixote", "Miguel de Cervantes", true);
+
+console.log("Disponibilidade do livro:", livro.consultarDisponibilidade());
+
+livro.emprestar();
+console.log("Disponibilidade do livro:", livro.consultarDisponibilidade());
+
+livro.devolver();
+console.log("Disponibilidade do livro:", livro.consultarDisponibilidade());
